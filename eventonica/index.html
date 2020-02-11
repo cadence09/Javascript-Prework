@@ -1,11 +1,23 @@
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Homepage">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="../eventonica/eventonica.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="jQuery-scripts.js"></script>
 </head>
 
 <body>
+    <div class="fontPagePic">
+     
+    </div>
+    <div class="startHere">
+        <h1 id="title">Create Your Own Event Here for 2020</h1>
+        <input type="button" value="Start Here">
+    </div>
+    
     <h1>Event Recommender</h1>
 
     <h2>User Management</h2>
@@ -25,16 +37,18 @@
             <br/>
             <!-- Add more form fields here -->
             <input type="submit" id="button">
+            <input type="reset" value="Reset">
         </form>
     </div>
 
     <div>
         <h3>Delete User</h3>
         <form id="delete-user">
-            <label>Ucrser ID:</label>
+            <label>User ID:</label>
             <input type="text" id="delete-user-id">
             <br/>
             <input type="submit" id="deleteBtn">
+            <input type="reset" value="Reset">
         </form>
     </div>
 
@@ -56,7 +70,14 @@
             <input type="text" id="add-event-name">
             <br/>
             <!-- Add more form fields here -->
+            <label>Event Date:</label>
+            <input type="text" id="add-event-date">
+            <br/>
+            <label>Event Category:</label>
+            <input type="text" id="add-event-category">
+            <br/>
             <input type="submit" id="eventBtn">
+            <input type="reset" value="Reset">
         </form>
     </div>
 
@@ -66,7 +87,8 @@
             <label>Event ID:</label>
             <input type="text" id="delete-event-id">
             <br/>
-            <input type="submit" id="deleteBtn">
+            <input type="submit" id="deleteEventBtn">
+            <input type="reset" value="Reset">
         </form>
     </div>
 
@@ -82,6 +104,7 @@
         <input type="text" id="date-search-id">
         <br/>
         <input type="submit" id="dateBtn">
+        <input type="reset" value="Reset">
     </form>
     <h4 id="result">Results:</h4>
     <ol>
@@ -96,6 +119,7 @@
         <input type="text" id="category-search-id">
         <br/>
         <input type="submit" id="categoryBtn">
+        <input type="reset" value="Reset">
     </form>
     <h4 id="categoryResult">Results:</h4>
     <ol>
@@ -112,7 +136,8 @@
         <label>Event ID:</label>
         <input type="text" id="save-event-id">
         <br/>
-        <input type="submit">
+        <input type="submit" id="#">        
+
     </form>
 </div>
 
