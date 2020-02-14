@@ -7,10 +7,15 @@ class Event {
         this.availableTickets = [];
 
     }
+    
     addAvailableTickets(type, price) {
         //     let event=new Event();
         //    this.availableTickets.push(event);
-        this.availableTickets.push(type, price)
+        let ticketInfo=new TicketType(type,price)
+        
+        this.availableTickets.push(ticketInfo)
+        this.availableTickets.join();
+       
         // console.log(type,price);
     }
     
@@ -46,7 +51,7 @@ const eventObj2 = new Event("skillet& Sevendust", "victorious was tour");
 const eventObj3 = new Event("Jenny Lewis", "On the lin tour 2019")
 const eventArray = new Array();
 eventArray.push(eventObj1, eventObj2, eventObj3);
-console.log(eventArray);
+console.log(`all tickets info ${eventArray}`);
 
 
 $(document).ready(function () {
@@ -76,6 +81,6 @@ eventObj1.searchTicket(0, 250);
 eventObj2.searchTicket(0, 100);
 eventObj3.searchTicket(0, 250);
 
-console.log(eventObj1.name)
+
 
 

@@ -5,19 +5,21 @@
     <meta name="description" content="Homepage">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="../eventonica/eventonica.js"></script>
+    <script src="eventonica.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="jQuery-scripts.js"></script>
 </head>
 
 <body>
-
+    <div class="fontPagePic">
+     
+    </div>
     <div class="startHere">
-        <h1 id="title">Create Your Own Event Here for 2020</h1>
+        <h1 id="title">Create Your Own Event Here for 2020<br></h1>
         <input type="button" value="Start Here">
     </div>
-    
-    <h1>Event Recommender</h1>
+    <h1>Import Events from Ticketmaster</h1>
+    <h2>Event Recommender</h2>
 
     <h2>User Management</h2>
     <div>
@@ -75,6 +77,9 @@
             <label>Event Category:</label>
             <input type="text" id="add-event-category">
             <br/>
+            <label>Keyword:</label>
+            <input type="text" id="add-event-keyword">
+            <br/>
             <input type="submit" id="eventBtn">
             <input type="reset" value="Reset">
         </form>
@@ -96,6 +101,20 @@
 <br/>
 
 <h2>Event Search and Save</h2>
+<div>
+    <h3>Find Events by Keyword</h3>
+    <form id="category-search">
+        <label>Event keyWord:</label>
+        <input type="text" id="keyword">
+        <br/>
+        <input type="submit" id="keywordBtn" value="Import first event from Ticketmaster">
+        <input type="reset" value="Reset">
+    </form>
+    <h4 id="keywordResult">Results:</h4>
+    <ol>
+        <!-- Use jQuery to add search results here-->
+    </ol>
+</div>
 <div>
     <h3>Find Events by Date</h3>
     <form id="date-search">
