@@ -8,8 +8,6 @@ http.createServer(function (request, response) {
     var filePath = '.' + request.url;
     if (filePath == './') {
         filePath = './index.html';
-    } else if (filePath == './nasreen'){
-        filePath = 'nasreen.html';
     }
 
     var extname = String(path.extname(filePath)).toLowerCase();
