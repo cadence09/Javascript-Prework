@@ -1,0 +1,13 @@
+Ex 1
+1. The entity will be the recipe collection table.
+2&4. The attributes will be the recipe id(date type:number ), name(date type:text) , description(date type:text) , vegetarian/non-vegetarian(date type:boolen) , date(date type:date), meal of the day(date type:text) , made number of time(date type:integer) , shared with friends or not(date type:boolean) 
+3.The primary key will be the recipe id.
+5.The recipe model can be model to non-vegetarian and vegetarian table.
+
+
+Ex2.
+1. The entity is the name of the table that should associate with all the attributes.
+2.The attributes will be the recipe properties.
+3. Data type will be the type of the value.
+4.The primary keys will be the id that correspond with the specific recipe. It will be useful when user to retrieve the data.
+5.Schema is the collection of the structure of the data.
