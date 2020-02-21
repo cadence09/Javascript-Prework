@@ -37,7 +37,6 @@ $(document).ready( () => {
             html+=`<li>${item.newUser}</li>`
       });
       $("#all-users").html(html);
-       
      
     })
 
@@ -167,4 +166,6 @@ $("#categoryBtn").click(function(e){
      
 // )}
 });
+
+
 
