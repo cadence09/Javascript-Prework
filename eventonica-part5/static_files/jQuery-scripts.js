@@ -7,7 +7,8 @@ $(document).ready( () => {
     // });
     // $("#all-users").html(html);
 
-
+    let addId=$("#add-user-id").val();
+    let addNewUser=$("#add-user-name").val();
     // connecting ajax to express
     $("#button").click(function(e){
     let html="";
@@ -18,8 +19,7 @@ $(document).ready( () => {
         dataType:"json",
         success:(data)=>{
             console.log("you received some data" + data)
-            let addId=$("#add-user-id").val();
-            let addNewUser=$("#add-user-name").val();
+         
                 eventRecommender.addUser(addNewUser,addId);
                 $.each(eventRecommender.users, function(index,item){
                           html+=`<li>${item.newUser}</li>`
