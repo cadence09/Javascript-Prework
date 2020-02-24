@@ -15,9 +15,11 @@ const port =3000;
 // app.put("/", function(req,res){
 //     res.send("send")
 // })
-
+// let eventRecommender1=new EventRecommender()
 let user=new User("Kate", 123)
-console.log(user)
+// user.addUser();
+// console.log(`what is inside the eventRecommender ${eventRecommender1.users}`)
+// console.log(EventRecommender.users)
 
 
 app.listen(port, function(){

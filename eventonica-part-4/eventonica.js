@@ -99,16 +99,16 @@ class Event{
 
 // const event1= new Event("happy Hour After Work","Tuesday", "happy hour");
 // const event2 =new Event("Weekend Pinic","Sunday", "happy weekend");
-const user1=new User("Bob", "1");
+// const user1=new User("Bob", "1");
 // const user2=new User("kate");
-let recommandation =new EventRecommender();
-recommandation.addUser(user1);
+// let recommandation =new EventRecommender();
+// recommandation.addUser(user1);
 // recommandation.addUser(user2);
 // recommandation.addEvent(event1);
 // recommandation.addEvent(event2);
 // user1.addPersonEvent("Studying");
 // recommandation.deleteUser(user1)
-console.log("all users: "+recommandation.users)
+// console.log("all users1: "+recommandation.users)
 
 
 
