@@ -4,15 +4,22 @@ const {EventRecommender, User, Event}= require("./static_files/eventonica")
 const bodyParser = require('body-parser');
 const port =3000;
 
+app.use(bodyParser.urlencoded({
+    extended: true
+  }));
 app.use(bodyParser.json());
 app.use(express.static("static_files"))
 
 const eventRecommender = new EventRecommender(); 
 app.post("/users", function(req,res){
-   console.log(eventRecommender.users.newUser)
-    let newUsers=req.body
-        // eventRecommender.addUser(addNewUser,addId);
-   res.send(newUsers)
+    console.log(`what is in the req ${(req.body.id)}`) 
+    console.log(`what is in the body ${JSON.stringify(req.body)}`) 
+
+    let newUsers=JSON.stringify(req.body)
+        eventRecommender.addUser(req.body.newUser ,req.body.id);
+        // console.log('eventRecommender.users ', eventRecommender.users)
+   res.send(newUsers) //{id: 3, newUser: 'eee'}
+  
 })
 
 //testing

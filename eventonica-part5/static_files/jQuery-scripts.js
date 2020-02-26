@@ -7,25 +7,34 @@ $(document).ready( () => {
     // });
     // $("#all-users").html(html);
 
-    let addId=$("#add-user-id").val();
-    let addNewUser=$("#add-user-name").val();
+   
+    
     // connecting ajax to express
     $("#button").click(function(e){
-    let html="";
+    // let html="";
     e.preventDefault();
-    $.ajax({
-        url:"users",
+    let addId=$("#add-user-id").val();
+    let addNewUser=$("#add-user-name").val();
+    console.log('<<<<<');
+    console.log(`what is addID and addnewUser ${addNewUser}`)
+     $.ajax({
+        url:"/users",
         type: "POST",
-        dataType:"json",
-        success:(data)=>{
-            console.log("you received some data" + data)
+        async: false,
+        data: {id: addId, newUser: addNewUser},
+        dataType:"text",
+        success:function (res){
+            console.log("you received some data" + (res))
+        //     console.log("you received some data1" + JSON.parse(res))
+        //  return res;
          
-                eventRecommender.addUser(addNewUser,addId);
-                $.each(eventRecommender.users, function(index,item){
-                          html+=`<li>${item.newUser}</li>`
-                    });
+        $("#all-users").html(res);
+                // eventRecommender.addUser(addNewUser,addId);
+                // $.each(data, function(index,item){
+                //           html+=`<li>${item.newUser}</li>`
+                //     });
                     
-                    $("#all-users").html(html);
+                //     $("#all-users").html(html);
         }
     })
 })
