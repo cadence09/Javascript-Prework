@@ -11,7 +11,7 @@ $(document).ready( () => {
     
     // connecting ajax to express
     $("#button").click(function(e){
-    // let html="";
+    let html="";
     e.preventDefault();
     let addId=$("#add-user-id").val();
     let addNewUser=$("#add-user-name").val();
@@ -22,13 +22,13 @@ $(document).ready( () => {
         type: "POST",
         async: false,
         data: {id: addId, newUser: addNewUser},
-        dataType:"html",
+        // dataType:"html",
         success:function (res){
             console.log("you received some data" + (res))
-        //     console.log("you received some data1" + JSON.parse(res))
-        //  return res;
-         
-        $("#all-users").html(res);
+            $.each(res, function(index,item){
+                html+=`<li>${item.newUser}</li>`
+          });
+        $("#all-users").html(html);
                 // eventRecommender.addUser(addNewUser,addId);
                 // $.each(data, function(index,item){
                 //           html+=`<li>${item.newUser}</li>`
@@ -74,18 +74,31 @@ $(document).ready( () => {
     // Add Event 
      $("#eventBtn").click(function(e){
          e.preventDefault();
-         let html="";
+        let html="";
          let eventId=$("#add-event-id").val();
           let eventName=$("#add-event-name").val();
           let eventDate=$("#add-event-date").val();
          let  eventCategory=$("#add-event-category").val();
          let  eventKeyword=$("#add-event-keyword").val();
-           eventRecommender.addEvent(eventName,eventId,eventDate,eventCategory,eventKeyword);
-            $.each(eventRecommender.events, function(index,item){
-                html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
-          });
+         $.ajax({
+             url:"/events",
+             type:"POST",
+             data:{addId:eventId, addEvent:eventName,date:eventDate,category:eventCategory,eventKey:eventKeyword},
+            
+             success(data){
+                $.each(data, function(index,item){
+                            html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+                      });
+                $("#eventList").html(html);
+             }
+         })
+        //    eventRecommender.addEvent(eventName,eventId,eventDate,eventCategory,eventKeyword);
+        //    console.log(eventRecommender.events)
+        //     $.each(eventRecommender.events, function(index,item){
+        //         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+        //   });
           
-          $("#eventList").html(html);
+       
         
         //   $("#eventList").append("<li>Event Id:"+eventId+ ",Event Name:" + eventName+"</li>")
           

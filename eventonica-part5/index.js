@@ -10,16 +10,30 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(express.static("static_files"))
 
+// updating user to express
 const eventRecommender = new EventRecommender(); 
 app.post("/users", function(req,res){
     console.log(`what is in the req ${(req.body.id)}`) 
     console.log(`what is in the body ${JSON.stringify(req.body)}`) 
 
-    let newUsers=JSON.stringify(req.body)
-        eventRecommender.addUser(req.body.newUser ,req.body.id);
+    // let newUsers=req.body;
+      eventRecommender.addUser(req.body.newUser ,req.body.id);
+      let newUser=eventRecommender.users
+      console.log(eventRecommender.users)
         // console.log('eventRecommender.users ', eventRecommender.users)
-   res.send(newUsers) //{id: 3, newUser: 'eee'}
+   res.send(newUser) //{id: 3, newUser: 'eee'}
   
+})
+
+// deteting user to express
+
+//updating event to express
+app.post("/events", function(req,res){
+    console.log(`what is in the req ${JSON.stringify(req.body)}`) 
+    eventRecommender.addEvent(req.body.eventName,req.body.id,req.body.date,req.body.category,req.body.keyword);
+    let addNewEvents=eventRecommender.events;
+    console.log(eventRecommender.events)
+    res.send(addNewEvents);
 })
 
 //testing
