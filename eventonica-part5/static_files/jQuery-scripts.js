@@ -1,5 +1,5 @@
 $(document).ready( () => {
-    const eventRecommender = new EventRecommender(); 
+    // const eventRecommender = new EventRecommender(); 
     // console.log(recommandation)
     // let html="";
     // $.each(recommandation.users, function(index,item){
@@ -7,28 +7,45 @@ $(document).ready( () => {
     // });
     // $("#all-users").html(html);
 
-    let addId=$("#add-user-id").val();
-    let addNewUser=$("#add-user-name").val();
-    // connecting ajax to express
     $("#button").click(function(e){
-    let html="";
-    e.preventDefault();
-    $.ajax({
-        url:"users",
-        type: "POST",
-        dataType:"json",
-        success:(data)=>{
-            console.log("you received some data" + data)
-         
-                eventRecommender.addUser(addNewUser,addId);
-                $.each(eventRecommender.users, function(index,item){
-                          html+=`<li>${item.newUser}</li>`
-                    });
-                    
-                    $("#all-users").html(html);
-        }
+        let html="";
+        e.preventDefault();
+        let addId=$("#add-user-id").val();
+        let addNewUser=$("#add-user-name").val();
+        console.log('<<<<<');
+        console.log(`what is addID and addnewUser ${addNewUser}`)
+         $.ajax({
+            url:"/users",
+            type: "POST",
+            async: false,
+            data: {id: addId, user: addNewUser},
+            // dataType:"text",
+            success:function (res){
+                console.log("you received some data" +JSON.stringify(res)) 
+                $.each(res, function(index,item){
+                            html+=`<li>${item.newUser}</li>`
+                      });
+                      $("#all-users").html(html);
+            //     $.each(res, function(index,item){
+            //         html+=`<li>${item.newUser}</li>`
+            //   });
+           
+                    // eventRecommender.addUser(addNewUser,addId);
+                    // $.each(data, function(index,item){
+                    //           html+=`<li>${item.newUser}</li>`
+                    //     });
+                        
+                    //     $("#all-users").html(html);
+            }
+           
+           
+        })
+       
     })
-})
+    
+        // $("#button").click(function(e){
+        //      let html="";
+        //  
     // $("#button").click(function(e){
     //      let html="";
     //     e.preventDefault();
