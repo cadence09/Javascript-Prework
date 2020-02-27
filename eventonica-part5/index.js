@@ -25,12 +25,45 @@ app.post("/users", function(req,res){
  res.send(newUser) //{id: 3, newUser: 'eee'}
 })
 
+// delete user
+app.delete("/deleteUser", function(req,res){
+      console.log(`deleteUser: ${req.body}`);
+      eventRecommender. deleteUser(req.body.deleteId);
+      let restOfTheUsers= eventRecommender.users;
+      res.send(restOfTheUsers)
+})
+
+//posting events
 app.post("/events", function(req,res){
   console.log(`what is in the req ${JSON.stringify(req.body)}`) 
-  eventRecommender.addEvent(req.body.eventName,req.body.id,req.body.date,req.body.category,req.body.keyword);
+  eventRecommender.addEvent(req.body.event,req.body.id,req.body.date,req.body.category,req.body.keyword);
   let addNewEvents=eventRecommender.events;
   console.log(eventRecommender.events)
   res.send(addNewEvents);
+})
+
+//deleting events
+app.delete("/deleteEvent", function(req,res){
+  console.log(`deleteEvent: ${req.body}`);
+  eventRecommender.deleteEvent(req.body.deleteId);
+  let restOfTheEvent= eventRecommender.events;
+  res.send(restOfTheEvent)
+})
+
+//searching by date
+app.get("/date", function(req,res){
+  console.log(`searching by date ${req.body.searchByDate}`)
+  eventRecommender.findEventsByDate(req.body.searchByDate)
+  let restOfTheEvent= eventRecommender.events;
+  res.send(restOfTheEvent)
+})
+
+//searching by category
+app.get("/category", function(req,res){
+  console.log(`searching by category ${req.body.category}`)
+  eventRecommender.findEventsByDate(req.body.category)
+  let restOfTheEvent= eventRecommender.events;
+  res.send(restOfTheEvent)
 })
 //testing
 // app.get("/", (req,res)=>res.send("Hello hooo"))

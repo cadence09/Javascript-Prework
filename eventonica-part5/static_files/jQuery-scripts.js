@@ -71,11 +71,23 @@ $(document).ready( () => {
         e.preventDefault();
         let html="";
         let valueOfdeleteUserId=$("#delete-user-id").val();
-        eventRecommender.deleteUser(valueOfdeleteUserId);
-        $.each(eventRecommender.users, function(index,item){
-            html+=`<li>${item.newUser}</li>`
-      });
-      $("#all-users").html(html);
+        $.ajax({
+            url:"/deleteUser",
+            type: "DELETE",
+            async: false,
+            data: {deleteId:valueOfdeleteUserId},
+            // dataType:"text",
+            success:function (res){
+                console.log("successful delete the id. this is the rest of the users" +JSON.stringify(res)) 
+                $.each(res, function(index,item){
+                            html+=`<li>${item.newUser}</li>`
+                      });
+                      $("#all-users").html(html);
+            }
+           
+           
+        })
+    
      
     })
 
@@ -88,27 +100,59 @@ $(document).ready( () => {
           let eventDate=$("#add-event-date").val();
          let  eventCategory=$("#add-event-category").val();
          let  eventKeyword=$("#add-event-keyword").val();
-           eventRecommender.addEvent(eventName,eventId,eventDate,eventCategory,eventKeyword);
-            $.each(eventRecommender.events, function(index,item){
-                html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
-          });
+         $.ajax({
+            url:"/events",
+            type: "POST",
+            async: false,
+            data: {id:eventId, event: eventName, date:eventDate,category:eventCategory, keyword:eventKeyword},
+            // dataType:"text",
+            success:function (res){
+                console.log("received new event" +JSON.stringify(res)) 
+                $.each(res, function(index,item){
+                            html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+                      });
+                      
+                      $("#eventList").html(html);
+           
+         //    eventRecommender.addEvent(eventName,eventId,eventDate,eventCategory,eventKeyword);
+        //     $.each(eventRecommender.events, function(index,item){
+        //         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+        //   });
           
-          $("#eventList").html(html);
+        //   $("#eventList").html(html);
         
         //   $("#eventList").append("<li>Event Id:"+eventId+ ",Event Name:" + eventName+"</li>")
           
-     })
+     }
+    })
+})
 
 //Delete event 
 $("#deleteEventBtn").click(function(e){
     e.preventDefault();
     let html="";
     let deleteEventId=$("#delete-event-id").val();
-    eventRecommender.deleteEvent(deleteEventId);
-    $.each(eventRecommender.events, function(index,item){
-        html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
-  });
-  $("#eventList").html(html);
+    $.ajax({
+        url:"/deleteEvent",
+        type: "DELETE",
+        async: false,
+        data: {deleteId:deleteEventId},
+        // dataType:"text",
+        success:function (res){
+            console.log("successful delete the id. this is the rest of the events" +JSON.stringify(res)) 
+            $.each(res, function(index,item){
+                        html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+                  });
+                  $("#eventList").html(html);
+        }
+       
+       
+    })
+//     eventRecommender.deleteEvent(deleteEventId);
+//     $.each(eventRecommender.events, function(index,item){
+//         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+//   });
+//   $("#eventList").html(html);
 
 });
 
@@ -171,13 +215,31 @@ $("#dateBtn").click(function(e){
     e.preventDefault();
     let html="";
     let searchByDate=$("#date-search-id").val();
-     eventRecommender.findEventsByDate(searchByDate);
-     $.each(eventRecommender.events, function(index,item){
+    $.ajax({
+        url:"/date",
+        type: "GET",
+        async: false,
+        data: {date:searchByDate},
+        // dataType:"text",
+        success:function (res){
+            console.log("match the date" +JSON.stringify(res)) 
+       $.each(res, function(index,item){
          if(searchByDate===item.date){
         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
          }
   });
   $("#result").html(html);
+        }
+       
+       
+    })
+    //  eventRecommender.findEventsByDate(searchByDate);
+//      $.each(eventRecommender.events, function(index,item){
+//          if(searchByDate===item.date){
+//         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+//          }
+//   });
+//   $("#result").html(html);
 
 });
 
@@ -186,13 +248,28 @@ $("#categoryBtn").click(function(e){
     e.preventDefault();
     let html="";
     let searchByCategory=$("#category-search-id").val();
-     eventRecommender.findEventsByDate(searchByCategory);
-     $.each(eventRecommender.events, function(index,item){
-         if(searchByCategory===item.category){
-        html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
-         }
-  });
-  $("#categoryResult").html(html);
+    $.ajax({
+        url:"/category",
+        type: "GET",
+        async: false,
+        data: {category:searchByCategory},
+        // dataType:"text",
+        success:function (res){
+            console.log("match the category" +JSON.stringify(res)) 
+            $.each(res, function(index,item){
+                         if(searchByCategory===item.category){
+                        html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+                         }
+                  });
+                  $("#categoryResult").html(html);
+        }
+//      eventRecommender.findEventsByDate(searchByCategory);
+//      $.each(eventRecommender.events, function(index,item){
+//          if(searchByCategory===item.category){
+//         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+//          }
+//   });
+//   $("#categoryResult").html(html);
 
 });
 
@@ -206,6 +283,4 @@ $("#categoryBtn").click(function(e){
      
 // )}
 });
-
-
-
+})
