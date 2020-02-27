@@ -50,6 +50,18 @@ app.delete("/deleteEvent", function(req,res){
   res.send(restOfTheEvent)
 })
 
+
+// find keyword
+app.post("/keyword", function(req,res){
+  console.log(`what is in the keyword ${JSON.stringify(req.body)}`) 
+
+  eventRecommender.addEvent(req.body.apiName,req.body.apiId,req.body.apiDate,req.body.apiCategory);
+  let addNewEvents=eventRecommender.events;
+  // console.log(`what is in the evetn ${JSON.stringify(addNewEvents)}`)
+  res.send(addNewEvents);
+})
+
+
 //searching by date
 app.get("/date", function(req,res){
   console.log(`searching by date ${req.body.searchByDate}`)

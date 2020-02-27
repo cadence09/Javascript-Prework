@@ -160,41 +160,71 @@ $("#deleteEventBtn").click(function(e){
 // Search Event By keyWord
 $("#keywordBtn").click(function(e){
     e.preventDefault();
+    let name;
+    let id;
+    let date;
+    let category;
     let searchByKeyword=$("#keyword").val();
+
     $.ajax({
         type:"GET",
-        url:`https://app.ticketmaster.com/discovery/v2/events.json?apikey=EJg3WOdWSxuVHGJ9hGXDByqmJU9jiJAl&keyword=${searchByKeyword}&locale=*`,
+        url:`https://app.ticketmaster.com/discovery/v2/events.json?apikey=EJg3WOdWSxuVHGJ9hGXDByqmJU9jiJAl&keyword=${searchByKeyword}&locale=*&countryCode=US&preferredCountry=us`,
         async:true,
         dataType: "json",
         success: function(json) {
+            console.log(`get some api data ${JSON.stringify(json._embedded.events)}`)
             var ticketMasterEvents = json._embedded.events;
-            
+            for (let i=0; i<ticketMasterEvents.length; i++){
+                name=ticketMasterEvents[i].name;
+                id=ticketMasterEvents[i].id;
+             date="N/A";
+            category=ticketMasterEvents[i].type;
+                
+            }
+            $.ajax({
+                type:"POST",
+                url:"/keyword",
+                async:true,
+                data:{apiName:name,apiId:id,apiDate:date,apiCategory:category},
+                dataType: "json",
+                success: function(res) {
+               
+                    console.log("successful delete the id. this is the keyword" +JSON.stringify(res)) 
+                }
+            })
+        }
+    })
+})
             // let searchByKeyword=$("#keyword").val();
-            html="";
+        //     html="";
           
-           for (let i=0; i<ticketMasterEvents.length; i++){
-               if (ticketMasterEvents[i].name.includes(searchByKeyword)){
+        //    for (let i=0; i<ticketMasterEvents.length; i++){
+        //        if (ticketMasterEvents[i].name.includes(searchByKeyword)){
                         
-                 html+=`<li>${ticketMasterEvents[i].name}<br>Event type:${ticketMasterEvents[i].type}---Date:${ticketMasterEvents[i].dates.start.localDate}</li>`;
-                 eventRecommender.addEvent(ticketMasterEvents[i].name,ticketMasterEvents[i].id,ticketMasterEvents[i].dates.start.localDate,ticketMasterEvents[i].type)
-               }
-            // console.log("ticketmasterEvents[i] returns", ticketMasterEvents[i].name)
-           }
+        //          html+=`<li>${ticketMasterEvents[i].name}<br>Event type:${ticketMasterEvents[i].type}---Date:${ticketMasterEvents[i].dates.start.localDate}</li>`;
+        //          eventRecommender.addEvent(ticketMasterEvents[i].name,ticketMasterEvents[i].id,ticketMasterEvents[i].dates.start.localDate,ticketMasterEvents[i].type)
+        //        }
+        //     // console.log("ticketmasterEvents[i] returns", ticketMasterEvents[i].name)
+        //    }
          
-           if(html.length===0){
-               html= `No Result`
-           }
-           $("#keywordResult").append(html);
+        //    if(html.length===0){
+        //        html= `No Result`
+        //    }
+        //    $("#keywordResult").append(html);
+
         //     let searchByKeyword=$("#add-event-keyword").val();
         //    console.log(events)
         //    for (var i=0;i<events.length;i++) {
 
         //    }
                     // Parse the response.
+              
                     // Do other things.
-        }    
+                
+       
         
-      });
+      
+      
 //     let html="";
 //     let searchByKeyword=$("#add-event-keyword").val();
 //      eventRecommender.findEventsByDate(searchByKeyword);
@@ -205,7 +235,8 @@ $("#keywordBtn").click(function(e){
 //   });
 //   $("#keywordesult").html(html);
 
-})	
+// })
+
 
 
 
