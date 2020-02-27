@@ -1,5 +1,5 @@
 $(document).ready( () => {
-    // const eventRecommender = new EventRecommender(); 
+    const eventRecommender = new EventRecommender(); 
     // console.log(recommandation)
     // let html="";
     // $.each(recommandation.users, function(index,item){
@@ -116,6 +116,7 @@ $("#deleteEventBtn").click(function(e){
 // Search Event By keyWord
 $("#keywordBtn").click(function(e){
     e.preventDefault();
+    let searchByKeyword=$("#keyword").val();
     $.ajax({
         type:"GET",
         url:"https://app.ticketmaster.com/discovery/v2/events.json?apikey=EJg3WOdWSxuVHGJ9hGXDByqmJU9jiJAl&locale=*",
@@ -124,7 +125,7 @@ $("#keywordBtn").click(function(e){
         success: function(json) {
             var ticketMasterEvents = json._embedded.events;
             
-            let searchByKeyword=$("#keyword").val();
+            // let searchByKeyword=$("#keyword").val();
             html="";
           
            for (let i=0; i<ticketMasterEvents.length; i++){
@@ -133,6 +134,7 @@ $("#keywordBtn").click(function(e){
                  html+=`<li>${ticketMasterEvents[i].name}<br>Event type:${ticketMasterEvents[i].type}---Date:${ticketMasterEvents[i].dates.start.localDate}</li>`;
                  eventRecommender.addEvent(ticketMasterEvents[i].name,ticketMasterEvents[i].id,ticketMasterEvents[i].dates.start.localDate,ticketMasterEvents[i].type)
                }
+            // console.log("ticketmasterEvents[i] returns", ticketMasterEvents[i].name)
            }
          
            if(html.length===0){
@@ -149,7 +151,6 @@ $("#keywordBtn").click(function(e){
         }    
         
       });
-   
 //     let html="";
 //     let searchByKeyword=$("#add-event-keyword").val();
 //      eventRecommender.findEventsByDate(searchByKeyword);
