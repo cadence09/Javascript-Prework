@@ -16,7 +16,7 @@ app.post("/users", function(req,res){
     console.log(`what is in the req ${(req.body.id)}`) 
     console.log(`what is in the body ${JSON.stringify(req.body)}`) 
 
-    // let newUsers=req.body;
+    // let newUsers=req.body; 
       eventRecommender.addUser(req.body.newUser ,req.body.id);
       let newUser=eventRecommender.users
       console.log(eventRecommender.users)
