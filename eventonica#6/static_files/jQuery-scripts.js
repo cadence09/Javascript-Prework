@@ -17,7 +17,7 @@ $(document).ready( () => {
          $.ajax({
             url:"/users",
             type: "POST",
-            async: false,
+            async: true,
             data: {id: addId, user: addNewUser},
             // dataType:"text",
             success:function (res){

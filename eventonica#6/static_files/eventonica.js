@@ -18,7 +18,7 @@ class EventRecommender {
         this.users.push(addToThisUser);
     }
    
-    saveUserEvent(user, eventId){
+    saveUserEvent(userID, eventId){
        
        user.addPersonEvent(eventId)
        

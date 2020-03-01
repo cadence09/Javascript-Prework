@@ -1,8 +1,31 @@
 const express = require("express")
+
 const app=express()
 const {EventRecommender, User, Event}= require("./static_files/eventonica")
 const bodyParser = require('body-parser');
 const port =5000;
+var pgp = require('pg-promise')(/* options */)
+var db = pgp('postgres://postgres:thanhcaden@127.0.0.1:49233/browser/:5432/eventonica');
+
+// db.connect()
+//     .then(obj => {
+//         // Can check the server version here (pg-promise v10.1.0+):
+//         // const serverVersion = obj.client.serverVersion;
+//       console.log("happy")
+//         // obj.done(); // success, release the connection;
+//     })
+//     .catch(error => {
+//         console.log('ERROR:', error.message || error);
+//     });
+
+    // db.none('INSERT INTO users(user_name VALUES('kate')', ['John', true])
+    // .then(() => {
+    //     // success;
+    // })
+    // .catch(error => {
+    //     // error;
+    // });
+
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -11,18 +34,37 @@ app.use(bodyParser.json());
 app.use(express.static("static_files"))
 
 const eventRecommender = new EventRecommender(); 
-app.post("/users", function(req,res){
+app.post("/users", function(req,res,next){
   console.log(`what is in the req ${(req.body.id)}`) 
   console.log(`what is in the the user ${(req.body.user)}`) 
   console.log(`what is in the body ${JSON.stringify(req.body)}`) 
 
-  // let newUsers=req.body;
+
     eventRecommender.addUser(req.body.user,req.body.id);
-    //  console.log(eventRecommender.users)
-    let newUser=eventRecommender.users;
-   
-      // console.log('eventRecommender.users ', eventRecommender.users)
- res.send(newUser) //{id: 3, newUser: 'eee'}
+      // let newUser=eventRecommender.users;
+      // res.send(newUser)//{id: 3, newUser: 'eee'}
+
+    
+     // the response always empty, db.one and .then and .catech not woring
+      //db.one('INSERT INTO users (user_name) VALUES($1,$2)', [req.body.id,req.body.user])
+    //   //  db.none('INSERT INTO users (user_name) VALUES (${user})', req.body.user)
+    //  // console.log("what is the req.body", req.body )
+          // .then(() => {
+          //         console.log(`in the database: ${res.rows}`)
+          //     //     let newUser=eventRecommender.users;
+          //     //  res.send(newUser)//{id: 3, newUser: 'eee'}
+          //     })
+          //     .catch(error => {
+          //        console.log("Error", error)
+          //   });
+    
+
+       db.query('INSERT INTO users (user_name) VALUES ($1)', [req.body.user],(err,res)=>{
+         console.log("success")
+         if(err) return next(err);
+         res.send(res.rows)
+       })
+       
 })
 
 // delete user
