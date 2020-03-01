@@ -18,9 +18,10 @@ class EventRecommender {
         this.users.push(addToThisUser);
     }
    
-    saveUserEvent(user, eventId){
-       
-       user.addPersonEvent(eventId)
+    saveUserEvent(userId, eventId){
+       let saveUser=this.users.find(data=>data.id===userId)
+       let saveEvent=this.events.find(data=>data.id === eventId)
+       saveUser.addPersonEvent(saveEvent)
        
        // Allow users to save events to a personal Events array.
     }
@@ -108,7 +109,7 @@ recommandation.addUser(user1);
 // recommandation.addEvent(event2);
 // user1.addPersonEvent("Studying");
 // recommandation.deleteUser(user1)
-console.log("all users: "+recommandation.users)
+// console.log("all users: "+recommandation.users)
 
 
 
