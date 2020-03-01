@@ -18,7 +18,7 @@ class EventRecommender {
         this.users.push(addToThisUser);
     }
    
-    saveUserEvent(user, eventId){
+    saveUserEvent(userId, eventId){
        
         let saveUser=this.users.find(data=>data.id===userId)
        let saveEvent=this.events.find(data=>data.id === eventId)
