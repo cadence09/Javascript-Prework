@@ -20,7 +20,9 @@ class EventRecommender {
    
     saveUserEvent(user, eventId){
        
-       user.addPersonEvent(eventId)
+        let saveUser=this.users.find(data=>data.id===userId)
+       let saveEvent=this.events.find(data=>data.id === eventId)
+       saveUser.addPersonEvent(saveEvent)
        
        // Allow users to save events to a personal Events array.
     }

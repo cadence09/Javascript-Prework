@@ -303,15 +303,15 @@ $("#categoryBtn").click(function(e){
 //   $("#categoryResult").html(html);
 
 });
-
+})
  //Save Event for user: use nested loop
-// $("#categoryBtn").click(function(e){
-//     e.preventDefault();
-//     let html="";
-//      let userId=$("#save-user-id").val();
-//      let eventId=$("#save-event-id").val();
-//      eventRecommender.saveUserEvent(userId,eventId);
-     
-// )}
-});
+ $("#savePersonalEvent").click(function(e){
+    e.preventDefault();
+   
+     let userId=$("#save-user-id").val();
+     let eventId=$("#save-event-id").val();
+     eventRecommender.saveUserEvent(userId,eventId);
+    
+})
+
 })
