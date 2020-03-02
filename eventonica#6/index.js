@@ -64,8 +64,7 @@ app.post("/users", function(req,res){
          if(err) return next(err);
          res.send(res.rows)
        })
-  
-})
+ })
 
 // delete user
 app.delete("/deleteUser", function(req,res){
@@ -98,7 +97,7 @@ app.post("/events", function(req,res){
 
   ]
 
-  db.query('INSERT INTO events (event_name,event_id,event_date,event_category,event_keyword) VALUES ($1)',values,(err,res)=>{
+  db.query('INSERT INTO events (event_name,event_id,event_date,event_category,event_keyword) VALUES ($1,$2,$3,$4,$5)',values,(err,res)=>{
     console.log("success posting the events")
   
     res.send(res.rows)
@@ -175,7 +174,7 @@ app.post("/personalEvent", function(req,res){
   // const personalUser=new User();
   // console.log(personalUser.personalEvent)
   // res.send("success")
-  db.query('INSERT INTO users (user_id,event_id) VALUES ($1)', [req.body.id,req.body.event],(err,res)=>{
+  db.query('INSERT INTO user_events (user_id,event_id) VALUES ($1,$2)', [req.body.id,req.body.event],(err,res)=>{
     console.log("success")
   
     res.send(res.rows)
