@@ -4,6 +4,7 @@ const app=express()
 const {EventRecommender, User, Event}= require("./static_files/eventonica")
 const bodyParser = require('body-parser');
 const port =5000;
+
 var pgp = require('pg-promise')(/* options */)
 var db = pgp('postgres://postgres:thanhcaden@127.0.0.1:49233/browser/:5432/eventonica');
 
@@ -27,6 +28,7 @@ var db = pgp('postgres://postgres:thanhcaden@127.0.0.1:49233/browser/:5432/event
     // });
 
 
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -34,10 +36,14 @@ app.use(bodyParser.json());
 app.use(express.static("static_files"))
 
 const eventRecommender = new EventRecommender(); 
-app.post("/users", function(req,res,next){
+
+
+app.post("/users", function(req,res){
+
   console.log(`what is in the req ${(req.body.id)}`) 
   console.log(`what is in the the user ${(req.body.user)}`) 
   console.log(`what is in the body ${JSON.stringify(req.body)}`) 
+
 
 
     eventRecommender.addUser(req.body.user,req.body.id);
@@ -83,10 +89,14 @@ app.delete("/deleteUser", function(req,res){
                 res.send(res.rows)
                 console.log(err)
        })
+ 
+   
 })
+
 
 //posting events
 app.post("/events", function(req,res){
+
   // console.log(`what is in the req ${JSON.stringify(req.body)}`) 
   eventRecommender.addEvent(req.body.event,req.body.id,req.body.date,req.body.category,req.body.keyword);
   // let addNewEvents=eventRecommender.events;
@@ -108,10 +118,13 @@ app.post("/events", function(req,res){
     res.send(res.rows)
   })
 
+=======
+
 })
 
 //deleting events
 app.delete("/deleteEvent", function(req,res){
+
   // console.log(`deleteEvent: ${req.body}`);
   // eventRecommender.deleteEvent(req.body.deleteId);
   // let restOfTheEvent= eventRecommender.events;
@@ -127,6 +140,7 @@ app.delete("/deleteEvent", function(req,res){
 
 // find keyword
 app.post("/keyword", function(req,res){
+
   // console.log(`what is in the keyword ${JSON.stringify(req.body)}`) 
 
   // eventRecommender.addEvent(req.body.apiName,req.body.apiId,req.body.apiDate,req.body.apiCategory);
@@ -140,11 +154,13 @@ app.post("/keyword", function(req,res){
     console.log(err)
 })
 
+
 })
 
 
 //searching by date
 app.get("/date", function(req,res){
+
   // console.log(`searching by date ${req.body.searchByDate}`)
   // eventRecommender.findEventsByDate(req.body.searchByDate)
   // let restOfTheEvent= eventRecommender.events;
@@ -155,10 +171,12 @@ app.get("/date", function(req,res){
     res.send(res.rows)
     console.log(err)
 })
+
 })
 
 //searching by category
 app.get("/category", function(req,res){
+
   // console.log(`searching by category ${req.body.category}`)
   // eventRecommender.findEventsByDate(req.body.category)
   // let restOfTheEvent= eventRecommender.events;

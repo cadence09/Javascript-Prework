@@ -188,7 +188,7 @@ $("#keywordBtn").click(function(e){
                 data:{apiName:name,apiId:id,apiDate:date,apiCategory:category},
                 dataType: "json",
                 success: function(res) {
-            
+
                     console.log("successful delete the id. this is the keyword" +JSON.stringify(res)) 
                 }
             })
@@ -303,6 +303,7 @@ $("#categoryBtn").click(function(e){
 //   $("#categoryResult").html(html);
 
 });
+
 });
 $("#savePersonalEvent").click(function(e){
     e.preventDefault();
@@ -324,3 +325,4 @@ $("#savePersonalEvent").click(function(e){
     
 })
 })
+
