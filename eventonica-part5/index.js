@@ -5,13 +5,17 @@ const bodyParser = require('body-parser');
 const port =5000;
 
 app.use(bodyParser.urlencoded({
+
   extended: true
 }));
+
 app.use(bodyParser.json());
 app.use(express.static("static_files"))
 
+// updating user to express
 const eventRecommender = new EventRecommender(); 
 app.post("/users", function(req,res){
+
   console.log(`what is in the req ${(req.body.id)}`) 
   console.log(`what is in the the user ${(req.body.user)}`) 
   console.log(`what is in the body ${JSON.stringify(req.body)}`) 
@@ -48,6 +52,7 @@ app.delete("/deleteEvent", function(req,res){
   eventRecommender.deleteEvent(req.body.deleteId);
   let restOfTheEvent= eventRecommender.events;
   res.send(restOfTheEvent)
+
 })
 
 

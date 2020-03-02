@@ -7,6 +7,7 @@ $(document).ready( () => {
     // });
     // $("#all-users").html(html);
 
+
     $("#button").click(function(e){
         let html="";
         e.preventDefault();
@@ -41,6 +42,7 @@ $(document).ready( () => {
            
         })
        
+
     })
     
         // $("#button").click(function(e){
@@ -94,13 +96,14 @@ $(document).ready( () => {
     // Add Event 
      $("#eventBtn").click(function(e){
          e.preventDefault();
-         let html="";
+        let html="";
          let eventId=$("#add-event-id").val();
           let eventName=$("#add-event-name").val();
           let eventDate=$("#add-event-date").val();
          let  eventCategory=$("#add-event-category").val();
          let  eventKeyword=$("#add-event-keyword").val();
          $.ajax({
+
             url:"/events",
             type: "POST",
             async: false,
@@ -115,11 +118,14 @@ $(document).ready( () => {
                       $("#eventList").html(html);
            
          //    eventRecommender.addEvent(eventName,eventId,eventDate,eventCategory,eventKeyword);
+
         //     $.each(eventRecommender.events, function(index,item){
         //         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
         //   });
           
+
         //   $("#eventList").html(html);
+
         
         //   $("#eventList").append("<li>Event Id:"+eventId+ ",Event Name:" + eventName+"</li>")
           
