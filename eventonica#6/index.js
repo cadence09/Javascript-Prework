@@ -7,6 +7,10 @@ const port =5000;
 var pgp = require('pg-promise')(/* options */)
 var db = pgp('postgres://postgres:thanhcaden@127.0.0.1:49233/browser/:5432/eventonica');
 
+// const I_LOVE=require("./config");
+// console.log("I love", I_LOVE)
+
+
 // db.connect()
 //     .then(obj => {
 //         // Can check the server version here (pg-promise v10.1.0+):
