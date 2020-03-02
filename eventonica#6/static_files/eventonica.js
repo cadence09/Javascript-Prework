@@ -18,7 +18,6 @@ class EventRecommender {
         this.users.push(addToThisUser);
     }
    
-<<<<<<< HEAD
     saveUserEvent(userId, eventId){
         let findEvent;
         let saveUser=this.users.find(data=>data.id===userId)
@@ -32,15 +31,8 @@ class EventRecommender {
         saveUser.addPersonEvent(findEvent)
         // Allow users to save events to a personal Events array.
      }
-=======
-    saveUserEvent(userID, eventId){
-       
-       user.addPersonEvent(eventId)
-       
-       // Allow users to save events to a personal Events array.
-    }
->>>>>>> bbf5355... add some database work
 
+     
     deleteUser(id) {
       let theRestOfTheUsers=this.users.filter(user =>user.id !==id);
       this.users=theRestOfTheUsers;
