@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 app.use(express.static("static_files"))
 
 const eventRecommender = new EventRecommender(); 
-app.post("/users", function(req,res,next){
+app.post("/users", function(req,res){
   console.log(`what is in the req ${(req.body.id)}`) 
   console.log(`what is in the the user ${(req.body.user)}`) 
   console.log(`what is in the body ${JSON.stringify(req.body)}`) 
@@ -64,61 +64,126 @@ app.post("/users", function(req,res,next){
          if(err) return next(err);
          res.send(res.rows)
        })
-       
+  
 })
 
 // delete user
 app.delete("/deleteUser", function(req,res){
-      console.log(`deleteUser: ${req.body}`);
+      // console.log(`deleteUser: ${req.body}`);
       eventRecommender. deleteUser(req.body.deleteId);
-      let restOfTheUsers= eventRecommender.users;
-      res.send(restOfTheUsers)
+      // let restOfTheUsers= eventRecommender.users;
+      // res.send(restOfTheUsers)
+
+      db.query(`DELETE FROM users WHERE id = $1`, [req.body.deleteId],
+              (err, res) => {
+                res.send(res.rows)
+                console.log(err)
+       })
 })
 
 //posting events
 app.post("/events", function(req,res){
-  console.log(`what is in the req ${JSON.stringify(req.body)}`) 
+  // console.log(`what is in the req ${JSON.stringify(req.body)}`) 
   eventRecommender.addEvent(req.body.event,req.body.id,req.body.date,req.body.category,req.body.keyword);
-  let addNewEvents=eventRecommender.events;
-  console.log(eventRecommender.events)
-  res.send(addNewEvents);
+  // let addNewEvents=eventRecommender.events;
+  // console.log(eventRecommender.events)
+  // res.send(addNewEvents);
+  let values=[
+    req.body.user,
+    req.body.event,
+    req.body.id,
+    req.body.date,
+    req.body.category,
+    req.body.keyword
+
+  ]
+
+  db.query('INSERT INTO events (event_name,event_id,event_date,event_category,event_keyword) VALUES ($1)',values,(err,res)=>{
+    console.log("success posting the events")
+  
+    res.send(res.rows)
+  })
+
 })
 
 //deleting events
 app.delete("/deleteEvent", function(req,res){
-  console.log(`deleteEvent: ${req.body}`);
-  eventRecommender.deleteEvent(req.body.deleteId);
-  let restOfTheEvent= eventRecommender.events;
-  res.send(restOfTheEvent)
+  // console.log(`deleteEvent: ${req.body}`);
+  // eventRecommender.deleteEvent(req.body.deleteId);
+  // let restOfTheEvent= eventRecommender.events;
+  // res.send(restOfTheEvent)
+
+  db.query(`DELETE FROM events WHERE id = $1`, [req.body.deleteId],
+  (err, res) => {
+    res.send(res.rows)
+    console.log(err)
+})
 })
 
 
 // find keyword
 app.post("/keyword", function(req,res){
-  console.log(`what is in the keyword ${JSON.stringify(req.body)}`) 
+  // console.log(`what is in the keyword ${JSON.stringify(req.body)}`) 
 
-  eventRecommender.addEvent(req.body.apiName,req.body.apiId,req.body.apiDate,req.body.apiCategory);
-  let addNewEvents=eventRecommender.events;
-  // console.log(`what is in the evetn ${JSON.stringify(addNewEvents)}`)
-  res.send(addNewEvents);
+  // eventRecommender.addEvent(req.body.apiName,req.body.apiId,req.body.apiDate,req.body.apiCategory);
+  // let addNewEvents=eventRecommender.events;
+  // // console.log(`what is in the evetn ${JSON.stringify(addNewEvents)}`)
+  // res.send(addNewEvents);
+
+  db.query(`SELECT * FROM events WHERE event_keyword=$1`, [req.body.keyword],
+  (err, res) => {
+    res.send(res.rows)
+    console.log(err)
+})
+
 })
 
 
 //searching by date
 app.get("/date", function(req,res){
-  console.log(`searching by date ${req.body.searchByDate}`)
-  eventRecommender.findEventsByDate(req.body.searchByDate)
-  let restOfTheEvent= eventRecommender.events;
-  res.send(restOfTheEvent)
+  // console.log(`searching by date ${req.body.searchByDate}`)
+  // eventRecommender.findEventsByDate(req.body.searchByDate)
+  // let restOfTheEvent= eventRecommender.events;
+  // res.send(restOfTheEvent)
+
+  db.query(`SELECT * FROM events WHERE event_date=$1`, [req.body.date],
+  (err, res) => {
+    res.send(res.rows)
+    console.log(err)
+})
 })
 
 //searching by category
 app.get("/category", function(req,res){
-  console.log(`searching by category ${req.body.category}`)
-  eventRecommender.findEventsByDate(req.body.category)
-  let restOfTheEvent= eventRecommender.events;
-  res.send(restOfTheEvent)
+  // console.log(`searching by category ${req.body.category}`)
+  // eventRecommender.findEventsByDate(req.body.category)
+  // let restOfTheEvent= eventRecommender.events;
+  // res.send(restOfTheEvent)
+
+  db.query(`SELECT * FROM events WHERE event_category=$1`, [req.body.category],
+  (err, res) => {
+    res.send(res.rows)
+    console.log(err)
 })
+})
+
+
+// saving personal event
+app.post("/personalEvent", function(req,res){
+  // console.log(`what is the return from /personalEvent ${JSON.stringify(req.body)}`)
+  eventRecommender.saveUserEvent(req.body.id,req.body.event);
+  // const personalUser=new User();
+  // console.log(personalUser.personalEvent)
+  // res.send("success")
+  db.query('INSERT INTO users (user_id,event_id) VALUES ($1)', [req.body.id,req.body.event],(err,res)=>{
+    console.log("success")
+  
+    res.send(res.rows)
+  })
+
+})
+
+
 //testing
 // app.get("/", (req,res)=>res.send("Hello hooo"))
 // app.listen(port, ()=> console.log(`Example app listening on port ${port}`));aa

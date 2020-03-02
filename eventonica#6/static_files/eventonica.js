@@ -18,12 +18,19 @@ class EventRecommender {
         this.users.push(addToThisUser);
     }
    
-    saveUserEvent(userID, eventId){
-       
-       user.addPersonEvent(eventId)
-       
-       // Allow users to save events to a personal Events array.
-    }
+    saveUserEvent(userId, eventId){
+        let findEvent;
+        let saveUser=this.users.find(data=>data.id===userId)
+        // let saveEvent=this.events.find(data=>data.id === eventId)
+        let saveEvent=this.events.find((data)=>{
+            if (data.id === eventId){
+                findEvent=data.eventName
+            }
+            return findEvent;
+        })
+        saveUser.addPersonEvent(findEvent)
+        // Allow users to save events to a personal Events array.
+     }
 
     deleteUser(id) {
       let theRestOfTheUsers=this.users.filter(user =>user.id !==id);
