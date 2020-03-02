@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 app.use(express.static("static_files"))
 
 const eventRecommender = new EventRecommender(); 
-app.post("/users", function(req,res){
+app.post("/users", function(req,res,next){
   console.log(`what is in the req ${(req.body.id)}`) 
   console.log(`what is in the the user ${(req.body.user)}`) 
   console.log(`what is in the body ${JSON.stringify(req.body)}`) 
@@ -64,7 +64,12 @@ app.post("/users", function(req,res){
          if(err) return next(err);
          res.send(res.rows)
        })
+
  })
+
+  
+
+
 
 // delete user
 app.delete("/deleteUser", function(req,res){
@@ -181,7 +186,6 @@ app.post("/personalEvent", function(req,res){
   })
 
 })
-
 
 //testing
 // app.get("/", (req,res)=>res.send("Hello hooo"))
