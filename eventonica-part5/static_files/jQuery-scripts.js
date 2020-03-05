@@ -11,7 +11,7 @@ $(document).ready( () => {
     
     // connecting ajax to express
     $("#button").click(function(e){
-    let html="";
+    // let html="";
     e.preventDefault();
     let addId=$("#add-user-id").val();
     let addNewUser=$("#add-user-name").val();
@@ -22,6 +22,7 @@ $(document).ready( () => {
         type: "POST",
         async: false,
         data: {id: addId, newUser: addNewUser},
+<<<<<<< HEAD
         // dataType:"html",
         success:function (res){
             console.log("you received some data" + (res))
@@ -29,6 +30,15 @@ $(document).ready( () => {
                 html+=`<li>${item.newUser}</li>`
           });
         $("#all-users").html(html);
+=======
+        dataType:"text",
+        success:function (res){
+            console.log("you received some data" + (res))
+        //     console.log("you received some data1" + JSON.parse(res))
+        //  return res;
+         
+        $("#all-users").html(res);
+>>>>>>> data-model-1
                 // eventRecommender.addUser(addNewUser,addId);
                 // $.each(data, function(index,item){
                 //           html+=`<li>${item.newUser}</li>`
