@@ -77,6 +77,15 @@ app.get("/category", function(req,res){
   let restOfTheEvent= eventRecommender.events;
   res.send(restOfTheEvent)
 })
+
+app.post("/personalEvent", function(req,res){
+   console.log(`what is the return from /personalEvent ${JSON.stringify(req.body)}`)
+  eventRecommender.saveUserEvent(req.body.id,req.body.event);
+  const personalUser=new User();
+  console.log(personalUser.personalEvent)
+  res.send("success")
+
+})
 //testing
 // app.get("/", (req,res)=>res.send("Hello hooo"))
 // app.listen(port, ()=> console.log(`Example app listening on port ${port}`));aa

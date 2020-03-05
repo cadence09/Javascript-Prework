@@ -310,7 +310,18 @@ $("#categoryBtn").click(function(e){
    
      let userId=$("#save-user-id").val();
      let eventId=$("#save-event-id").val();
-     eventRecommender.saveUserEvent(userId,eventId);
+     $.ajax({
+        url:"/personalEvent",
+        type: "POST",
+        async: false,
+        data: {id:userId,event:eventId},
+        // dataType:"text",
+        success:function (res){
+           console.log(`what is the personalEvent ${JSON.stringify(res)}`);
+           
+        } 
+});
+    //  eventRecommender.saveUserEvent(userId,eventId);
     
 })
 
