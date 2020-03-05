@@ -77,9 +77,10 @@ $("#deleteEventBtn").click(function(e){
 // Search Event By keyWord
 $("#keywordBtn").click(function(e){
     e.preventDefault();
+    let searchByKeyword=$("#keyword").val();
     $.ajax({
         type:"GET",
-        url:"https://app.ticketmaster.com/discovery/v2/events.json?apikey=EJg3WOdWSxuVHGJ9hGXDByqmJU9jiJAl&locale=*",
+        url:`https://app.ticketmaster.com/discovery/v2/events.json?apikey=EJg3WOdWSxuVHGJ9hGXDByqmJU9jiJAl&keyword=${searchByKeyword}&locale=*`,
         async:true,
         dataType: "json",
         success: function(json) {

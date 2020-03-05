@@ -129,6 +129,6 @@ if (typeof module != 'undefined'){
     module.exports = { EventRecommender, User,  Event} 
 }
 
-module.exports={
-    EventRecommender, User, Event
-};
+// module.exports={
+//     EventRecommender, User, Event
+// };
