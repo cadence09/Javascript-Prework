@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const port =5000;
 
 var pgp = require('pg-promise')(/* options */)
-var db = pgp('postgres://postgres:thanhcaden@127.0.0.1:49233/browser/:5432/eventonica');
-
+var db = pgp('postgres://postgres:thanhcaden@localhost:5433/eventonica');
+// var db = pgp('postgres://tpl1219_12@localhost:5432/eventonica');
 // const I_LOVE=require("./config");
 // console.log("I love", I_LOVE)
 
@@ -42,19 +42,29 @@ app.use(express.static("static_files"))
 const eventRecommender = new EventRecommender(); 
 
 
-app.post("/users", function(req,res){
 
-  console.log(`what is in the req ${(req.body.id)}`) 
-  console.log(`what is in the the user ${(req.body.user)}`) 
-  console.log(`what is in the body ${JSON.stringify(req.body)}`) 
+app.get("/users", function(req,res){
 
+  // console.log(`what is in the req ${(req.body.id)}`) 
+  // console.log(`what is in the the user ${(req.body.user)}`) 
+  // console.log(`what is in the body ${JSON.stringify(req.body)}`) 
 
+ 
 
-    eventRecommender.addUser(req.body.user,req.body.id);
+    // eventRecommender.addUser(req.body.user,req.body.id);
       // let newUser=eventRecommender.users;
-      // res.send(newUser)//{id: 3, newUser: 'eee'}
+       //res.send(newUser)//{id: 3, newUser: 'eee'}
 
-    
+    db.any("SELECT * FROM users")
+      .then ((data)=>{
+        console.log('>>>>> ',data)
+        return data;
+      })
+      .catch(error =>{
+            console.log("error: ", error)
+      })
+       
+      
      // the response always empty, db.one and .then and .catech not woring
       //db.one('INSERT INTO users (user_name) VALUES($1,$2)', [req.body.id,req.body.user])
     //   //  db.none('INSERT INTO users (user_name) VALUES (${user})', req.body.user)
@@ -69,11 +79,11 @@ app.post("/users", function(req,res){
           //   });
     
 
-       db.query('INSERT INTO users (user_name) VALUES ($1)', [req.body.user],(err,res)=>{
-         console.log("success")
-         if(err) return next(err);
-         res.send(res.rows)
-       })
+      //  db.query('INSERT INTO users (user_name) VALUES ($1)', [req.body.user],(err,res)=>{
+      //    console.log("success")
+      //    if(err) return next(err);
+      //    res.send(res.rows)
+      //  })
 
  })
 
@@ -113,17 +123,21 @@ app.post("/events", function(req,res){
     req.body.date,
     req.body.category,
     req.body.keyword
-
   ]
 
-  db.query('INSERT INTO events (event_name,event_id,event_date,event_category,event_keyword) VALUES ($1,$2,$3,$4,$5)',values,(err,res)=>{
-    console.log("success posting the events")
-  
-    res.send(res.rows)
-  })
-
-
-
+  // db.query('INSERT INTO events (event_name,event_id,event_date,event_category,event_keyword) VALUES ($1,$2,$3,$4,$5)',values,(err,res)=>{
+  //   console.log("success posting the events")
+  //   console.log(res.rows);
+  //   res.send(res.rows)
+  // })
+  db.query('INSERT INTO events (event_name,event_id,event_date,event_category,event_keyword) VALUES ($1,$2,$3,$4,$5)',values)
+      .then((data) =>{
+          console.log(data)
+          return data
+      })
+      .catch(( error) =>{
+          console.log("erroor", error)
+      })
 })
 
 //deleting events

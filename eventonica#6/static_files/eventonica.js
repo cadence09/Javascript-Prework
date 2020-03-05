@@ -109,9 +109,9 @@ class Event{
 // const event2 =new Event("Weekend Pinic","Sunday", "happy weekend");
 // const user1=new User("Bob", "1");
 // const user2=new User("kate");
-let recommandation =new EventRecommender();
-recommandation.addUser("bob",1);
-console.log(recommandation.users)
+// let recommandation =new EventRecommender();
+// recommandation.addUser("bob",1);
+// console.log(recommandation.users)
 // console.log(`what is in the this.users ${JSON.stringify(recommandation.users)}`) 
 
 // recommandation.addUser(user2);
