@@ -19,8 +19,11 @@ class Form extends React.Component{
     }
     render(){
         const message =this.state.value;
-        const wordCount=100;
+        const wordCount=10;
         const wordCountLength=message.length;
+        let wordLeft=wordCount-wordCountLength;
+        const tooManyCharStyle = {color: "red"};
+        // const goodToGo = {color: "green"};
         return (
         <div>
             <h1>Tweeter</h1>
@@ -30,7 +33,10 @@ class Form extends React.Component{
                  <textarea value={message} onChange={this.handleChange}></textarea>
               </lable>
               <div className="wordCount">
-                  count:{wordCountLength}
+                  count:{wordLeft}
+                  {message.length <0 ? "Over Limit": "good to GO"}
+
+                
               </div>
               <br/>
               <input type="submit" value="submit"></input>
