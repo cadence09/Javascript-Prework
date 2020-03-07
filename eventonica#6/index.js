@@ -43,7 +43,7 @@ const eventRecommender = new EventRecommender();
 
 
 
-app.get("/users", function(req,res){
+app.post("/users", function(req,res){
 
   // console.log(`what is in the req ${(req.body.id)}`) 
   // console.log(`what is in the the user ${(req.body.user)}`) 
@@ -55,14 +55,14 @@ app.get("/users", function(req,res){
       // let newUser=eventRecommender.users;
        //res.send(newUser)//{id: 3, newUser: 'eee'}
 
-    db.any("SELECT * FROM users")
-      .then ((data)=>{
-        console.log('>>>>> ',data)
-        return data;
-      })
-      .catch(error =>{
-            console.log("error: ", error)
-      })
+    // db.query("SELECT * FROM users")
+    //   .then ((data)=>{
+    //     console.log('>>>>> ',data)
+    //     return data;
+    //   })
+    //   .catch(error =>{
+    //         console.log("error: ", error)
+    //   })
        
       
      // the response always empty, db.one and .then and .catech not woring
@@ -79,14 +79,17 @@ app.get("/users", function(req,res){
           //   });
     
 
-      //  db.query('INSERT INTO users (user_name) VALUES ($1)', [req.body.user],(err,res)=>{
-      //    console.log("success")
-      //    if(err) return next(err);
-      //    res.send(res.rows)
-      //  })
-
+       db.none('INSERT INTO users (user_name) VALUES ($1)', [req.body.user])
+       
+       .then (()=>{
+          console.log("success inserting data")
+      })
+      .catch(error =>{
+            console.log("fail inserting: ", error)
+            
+      })
+      
  })
-
   
 
 
@@ -98,11 +101,13 @@ app.delete("/deleteUser", function(req,res){
       // let restOfTheUsers= eventRecommender.users;
       // res.send(restOfTheUsers)
 
-      db.query(`DELETE FROM users WHERE id = $1`, [req.body.deleteId],
-              (err, res) => {
-                res.send(res.rows)
-                console.log(err)
-       })
+      db.result(`DELETE FROM users WHERE id = $1`, [req.body.deleteId])
+      .then (()=>{
+        console.log("success deleting data")
+    })
+    .catch(error =>{
+          console.log("fail deleting: ", error)
+    })
  
    
 })
@@ -117,9 +122,7 @@ app.post("/events", function(req,res){
   // console.log(eventRecommender.events)
   // res.send(addNewEvents);
   let values=[
-    req.body.user,
     req.body.event,
-    req.body.id,
     req.body.date,
     req.body.category,
     req.body.keyword
@@ -130,13 +133,13 @@ app.post("/events", function(req,res){
   //   console.log(res.rows);
   //   res.send(res.rows)
   // })
-  db.query('INSERT INTO events (event_name,event_id,event_date,event_category,event_keyword) VALUES ($1,$2,$3,$4,$5)',values)
-      .then((data) =>{
-          console.log(data)
-          return data
+  db.none('INSERT INTO events (event_name,event_date,event_category,event_keyword) VALUES ($1,$2,$3,$4)',values)
+      .then(() =>{
+          console.log("successfully inserting event")
+         
       })
       .catch(( error) =>{
-          console.log("erroor", error)
+          console.log("error", error)
       })
 })
 
@@ -148,29 +151,35 @@ app.delete("/deleteEvent", function(req,res){
   // let restOfTheEvent= eventRecommender.events;
   // res.send(restOfTheEvent)
 
-  db.query(`DELETE FROM events WHERE id = $1`, [req.body.deleteId],
-  (err, res) => {
-    res.send(res.rows)
-    console.log(err)
-})
+
+  db.result(`DELETE FROM events WHERE id = $1`,[req.body.deleteId])
+      .then (()=>{
+        console.log("success deleting data")
+    })
+    .catch(error =>{
+          console.log("fail deleting: ", error)
+    })
 })
 
 
 // find keyword
-app.post("/keyword", function(req,res){
+app.get("/keyword", function(req,res){
 
   // console.log(`what is in the keyword ${JSON.stringify(req.body)}`) 
 
-  // eventRecommender.addEvent(req.body.apiName,req.body.apiId,req.body.apiDate,req.body.apiCategory);
+  eventRecommender.addEvent(req.body.apiName,req.body.apiId,req.body.apiDate,req.body.apiCategory);
   // let addNewEvents=eventRecommender.events;
   // // console.log(`what is in the evetn ${JSON.stringify(addNewEvents)}`)
   // res.send(addNewEvents);
 
-  db.query(`SELECT * FROM events WHERE event_keyword=$1`, [req.body.keyword],
-  (err, res) => {
-    res.send(res.rows)
-    console.log(err)
-})
+  db.any(`SELECT * FROM events WHERE event_keyword=$1`, [req.body.keyword])
+   .then (()=>{
+        console.log("Get events that is  matching the keyword")
+        return ;
+      })
+      .catch(error =>{
+            console.log("error: ", error)
+      })
 
 
 })
@@ -179,32 +188,39 @@ app.post("/keyword", function(req,res){
 //searching by date
 app.get("/date", function(req,res){
 
-  // console.log(`searching by date ${req.body.searchByDate}`)
-  // eventRecommender.findEventsByDate(req.body.searchByDate)
-  // let restOfTheEvent= eventRecommender.events;
-  // res.send(restOfTheEvent)
+  console.log(`searching by date ${req.body.searchByDate}`)
+  eventRecommender.findEventsByDate(req.body.searchByDate)
+  
+  let restOfTheEvent= eventRecommender.events;
+  res.send(restOfTheEvent)
 
-  db.query(`SELECT * FROM events WHERE event_date=$1`, [req.body.date],
-  (err, res) => {
-    res.send(res.rows)
-    console.log(err)
-})
+  db.any(`SELECT * FROM events WHERE event_date=$1`, [req.body.date])
+   .then (()=>{
+        console.log('Get events that is  matching the date')
+    
+      })
+      .catch(error =>{
+            console.log("error: ", error)
+      })
 
 })
 
 //searching by category
 app.get("/category", function(req,res){
 
-  // console.log(`searching by category ${req.body.category}`)
-  // eventRecommender.findEventsByDate(req.body.category)
-  // let restOfTheEvent= eventRecommender.events;
-  // res.send(restOfTheEvent)
+  console.log(`searching by category ${req.body.category}`)
+  eventRecommender.findEventsByDate(req.body.category)
+  let restOfTheEvent= eventRecommender.events;
+  res.send(restOfTheEvent)
 
-  db.query(`SELECT * FROM events WHERE event_category=$1`, [req.body.category],
-  (err, res) => {
-    res.send(res.rows)
-    console.log(err)
-})
+  db.any(`SELECT * FROM events WHERE event_category=$1`, [req.body.category])
+  .then (()=>{
+    console.log('Get events that is  matching the category')
+
+  })
+  .catch(error =>{
+        console.log("error: ", error)
+  })
 })
 
 
