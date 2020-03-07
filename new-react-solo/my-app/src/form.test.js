@@ -5,5 +5,4 @@ describe('<Form/> rendering', () => {
         let form = shallow(<Form />);
         expect(form.children('h1')).toHaveLength(1);
     });
-  
 });
