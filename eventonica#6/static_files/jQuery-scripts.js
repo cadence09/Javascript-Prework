@@ -1,5 +1,5 @@
 $(document).ready( () => {
-    const eventRecommender = new EventRecommender(); 
+   // const eventRecommender = new EventRecommender(); 
     // console.log(recommandation)
     // let html="";
     // $.each(recommandation.users, function(index,item){

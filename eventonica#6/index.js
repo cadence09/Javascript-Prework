@@ -78,7 +78,7 @@ app.post("/users", function(req,res){
           //        console.log("Error", error)
           //   });
     
-
+ //res.send(req.body.user)//{id: 3, newUser: 'eee'}
        db.none('INSERT INTO users (user_name) VALUES ($1)', [req.body.user])
        
        .then (()=>{
