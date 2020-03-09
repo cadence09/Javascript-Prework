@@ -21,21 +21,10 @@ $(document).ready( () => {
             data: {id: addId, user: addNewUser},
             // dataType:"text",
             success:function (res){
-                console.log("you received some data" +JSON.stringify(res)) 
-                $.each(res, function(index,item){
-                            html+=`<li>${item.newUser}</li>`
-                      });
-                      $("#all-users").html(html);
-            //     $.each(res, function(index,item){
-            //         html+=`<li>${item.newUser}</li>`
-            //   });
-           
-                    // eventRecommender.addUser(addNewUser,addId);
-                    // $.each(data, function(index,item){
-                    //           html+=`<li>${item.newUser}</li>`
-                    //     });
-                        
-                    //     $("#all-users").html(html);
+                console.log(JSON.stringify(res)) 
+               
+                // html="You have post the username:"+JSON.stringify(res.user_name)+ "successfully."
+               
             }
            
            
@@ -43,28 +32,7 @@ $(document).ready( () => {
        
     })
     
-        // $("#button").click(function(e){
-        //      let html="";
-        //  
-    // $("#button").click(function(e){
-    //      let html="";
-    //     e.preventDefault();
-    //     let addId=$("#add-user-id").val();
-    // let addNewUser=$("#add-user-name").val();
-    //     eventRecommender.addUser(addNewUser,addId);
-
-    //     $.each(eventRecommender.users, function(index,item){
-    //       html+=`<li>${item.newUser}</li>`
-    // });
     
-    // $("#all-users").html(html);
-
-    //     // console.log(addUserToList);
-    //     // $("#all-users").append("<li>"+ addUserToList+"</li>")
-    //     // $("#all-users").append("<li>User ID: "  + addId + ": " + "User Name: "+ addUser +"</li>")
-    //     // $("#all-users").html(addUser)
-       
-    // })
     
 // detele user block 
     $("#deleteBtn").click(function(e){
@@ -74,15 +42,15 @@ $(document).ready( () => {
         $.ajax({
             url:"/deleteUser",
             type: "DELETE",
-            async: false,
+            async: true,
             data: {deleteId:valueOfdeleteUserId},
             // dataType:"text",
             success:function (res){
-                console.log("successful delete the id. this is the rest of the users" +JSON.stringify(res)) 
-                $.each(res, function(index,item){
-                            html+=`<li>${item.newUser}</li>`
-                      });
-                      $("#all-users").html(html);
+                console.log(JSON.stringify(res)) 
+                // $.each(res, function(index,item){
+                //             html+=`<li>${item.newUser}</li>`
+                //       });
+                //       $("#all-users").html(html);
             }
            
            
@@ -103,25 +71,18 @@ $(document).ready( () => {
          $.ajax({
             url:"/events",
             type: "POST",
-            async: false,
+            async: true,
             data: {id:eventId, event: eventName, date:eventDate,category:eventCategory, keyword:eventKeyword},
             // dataType:"text",
             success:function (res){
-                console.log("received new event" +JSON.stringify(res)) 
-                $.each(res, function(index,item){
-                            html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
-                      });
+                 console.log(res) 
+                // $.each(res, function(index,item){
+                //             html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+                //       });
                       
-                      $("#eventList").html(html);
+                //       $("#eventList").html(html);
            
-         //    eventRecommender.addEvent(eventName,eventId,eventDate,eventCategory,eventKeyword);
-        //     $.each(eventRecommender.events, function(index,item){
-        //         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
-        //   });
-          
-        //   $("#eventList").html(html);
-        
-        //   $("#eventList").append("<li>Event Id:"+eventId+ ",Event Name:" + eventName+"</li>")
+         
           
      }
     })
@@ -135,24 +96,19 @@ $("#deleteEventBtn").click(function(e){
     $.ajax({
         url:"/deleteEvent",
         type: "DELETE",
-        async: false,
+        async: true,
         data: {deleteId:deleteEventId},
         // dataType:"text",
         success:function (res){
-            console.log("successful delete the id. this is the rest of the events" +JSON.stringify(res)) 
-            $.each(res, function(index,item){
-                        html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
-                  });
-                  $("#eventList").html(html);
+            console.log(res) 
+            // $.each(res, function(index,item){
+            //             html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+            //       });
+            //       $("#eventList").html(html);
         }
        
        
     })
-//     eventRecommender.deleteEvent(deleteEventId);
-//     $.each(eventRecommender.events, function(index,item){
-//         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
-//   });
-//   $("#eventList").html(html);
 
 });
 
@@ -189,7 +145,7 @@ $("#keywordBtn").click(function(e){
                 dataType: "json",
                 success: function(res) {
 
-                    console.log("successful delete the id. this is the keyword" +JSON.stringify(res)) 
+                    console.log(res) 
                 }
             })
         }
@@ -249,7 +205,7 @@ $("#dateBtn").click(function(e){
     $.ajax({
         url:"/date",
         type: "GET",
-        async: false,
+        async: true,
         data: {date:searchByDate},
         // dataType:"text",
         success:function (res){
@@ -259,7 +215,7 @@ $("#dateBtn").click(function(e){
         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
          }
   });
-  $("#result").html(html);
+  $("#result").html(res);
         }
        
        
@@ -282,17 +238,17 @@ $("#categoryBtn").click(function(e){
     $.ajax({
         url:"/category",
         type: "GET",
-        async: false,
+        async: true,
         data: {category:searchByCategory},
         // dataType:"text",
         success:function (res){
             console.log("match the category" +JSON.stringify(res)) 
-            $.each(res, function(index,item){
-                         if(searchByCategory===item.category){
-                        html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
-                         }
-                  });
-                  $("#categoryResult").html(html);
+            // $.each(res, function(index,item){
+            //              if(searchByCategory===item.category){
+            //             html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
+            //              }
+            //       });
+                  $("#categoryResult").html(res);
         }
 //      eventRecommender.findEventsByDate(searchByCategory);
 //      $.each(eventRecommender.events, function(index,item){

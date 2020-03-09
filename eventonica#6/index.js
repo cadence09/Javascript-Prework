@@ -83,6 +83,9 @@ app.post("/users", function(req,res){
        
        .then (()=>{
           console.log("success inserting data")
+          //res.send("inserting data", data)
+          //res.status(200).send(data)
+          res.send("success inserting data")
       })
       .catch(error =>{
             console.log("fail inserting: ", error)
@@ -97,13 +100,14 @@ app.post("/users", function(req,res){
 // delete user
 app.delete("/deleteUser", function(req,res){
       // console.log(`deleteUser: ${req.body}`);
-      eventRecommender. deleteUser(req.body.deleteId);
+      //eventRecommender. deleteUser(req.body.deleteId);
       // let restOfTheUsers= eventRecommender.users;
       // res.send(restOfTheUsers)
 
       db.result(`DELETE FROM users WHERE id = $1`, [req.body.deleteId])
       .then (()=>{
         console.log("success deleting data")
+        res.send("success deleting data")
     })
     .catch(error =>{
           console.log("fail deleting: ", error)
@@ -117,7 +121,7 @@ app.delete("/deleteUser", function(req,res){
 app.post("/events", function(req,res){
 
   // console.log(`what is in the req ${JSON.stringify(req.body)}`) 
-  eventRecommender.addEvent(req.body.event,req.body.id,req.body.date,req.body.category,req.body.keyword);
+  //eventRecommender.addEvent(req.body.event,req.body.id,req.body.date,req.body.category,req.body.keyword);
   // let addNewEvents=eventRecommender.events;
   // console.log(eventRecommender.events)
   // res.send(addNewEvents);
@@ -136,7 +140,7 @@ app.post("/events", function(req,res){
   db.none('INSERT INTO events (event_name,event_date,event_category,event_keyword) VALUES ($1,$2,$3,$4)',values)
       .then(() =>{
           console.log("successfully inserting event")
-         
+          res.send("successfully inserting event")
       })
       .catch(( error) =>{
           console.log("error", error)
@@ -155,6 +159,7 @@ app.delete("/deleteEvent", function(req,res){
   db.result(`DELETE FROM events WHERE id = $1`,[req.body.deleteId])
       .then (()=>{
         console.log("success deleting data")
+        res.send("success deleting data")
     })
     .catch(error =>{
           console.log("fail deleting: ", error)
@@ -167,7 +172,7 @@ app.get("/keyword", function(req,res){
 
   // console.log(`what is in the keyword ${JSON.stringify(req.body)}`) 
 
-  eventRecommender.addEvent(req.body.apiName,req.body.apiId,req.body.apiDate,req.body.apiCategory);
+  //eventRecommender.addEvent(req.body.apiName,req.body.apiId,req.body.apiDate,req.body.apiCategory);
   // let addNewEvents=eventRecommender.events;
   // // console.log(`what is in the evetn ${JSON.stringify(addNewEvents)}`)
   // res.send(addNewEvents);
@@ -175,7 +180,7 @@ app.get("/keyword", function(req,res){
   db.any(`SELECT * FROM events WHERE event_keyword=$1`, [req.body.keyword])
    .then (()=>{
         console.log("Get events that is  matching the keyword")
-        return ;
+      
       })
       .catch(error =>{
             console.log("error: ", error)
@@ -189,15 +194,15 @@ app.get("/keyword", function(req,res){
 app.get("/date", function(req,res){
 
   console.log(`searching by date ${req.body.searchByDate}`)
-  eventRecommender.findEventsByDate(req.body.searchByDate)
+  //eventRecommender.findEventsByDate(req.body.searchByDate)
   
-  let restOfTheEvent= eventRecommender.events;
-  res.send(restOfTheEvent)
+  // let restOfTheEvent= eventRecommender.events;
+  // res.send(restOfTheEvent)
 
-  db.any(`SELECT * FROM events WHERE event_date=$1`, [req.body.date])
+  db.one(`SELECT * FROM events WHERE event_date=$1`, [req.body.date])
    .then (()=>{
-        console.log('Get events that is  matching the date')
-    
+        console.log('Get events that is  matching the date',)
+        
       })
       .catch(error =>{
             console.log("error: ", error)
@@ -209,9 +214,9 @@ app.get("/date", function(req,res){
 app.get("/category", function(req,res){
 
   console.log(`searching by category ${req.body.category}`)
-  eventRecommender.findEventsByDate(req.body.category)
-  let restOfTheEvent= eventRecommender.events;
-  res.send(restOfTheEvent)
+  // eventRecommender.findEventsByDate(req.body.category)
+  // let restOfTheEvent= eventRecommender.events;
+  // res.send(restOfTheEvent)
 
   db.any(`SELECT * FROM events WHERE event_category=$1`, [req.body.category])
   .then (()=>{
@@ -227,7 +232,7 @@ app.get("/category", function(req,res){
 // saving personal event
 app.post("/personalEvent", function(req,res){
   // console.log(`what is the return from /personalEvent ${JSON.stringify(req.body)}`)
-  eventRecommender.saveUserEvent(req.body.id,req.body.event);
+  //eventRecommender.saveUserEvent(req.body.id,req.body.event);
   // const personalUser=new User();
   // console.log(personalUser.personalEvent)
   // res.send("success")
