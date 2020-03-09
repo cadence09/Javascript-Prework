@@ -8,7 +8,9 @@ $(document).ready( () => {
     // $("#all-users").html(html);
 
 
+
     $("#button").click(function(e){
+
         let html="";
         e.preventDefault();
         let addId=$("#add-user-id").val();
@@ -42,6 +44,8 @@ $(document).ready( () => {
            
         })
        
+
+
 
     })
     
@@ -104,6 +108,7 @@ $(document).ready( () => {
          let  eventKeyword=$("#add-event-keyword").val();
          $.ajax({
 
+
             url:"/events",
             type: "POST",
             async: false,
@@ -114,17 +119,22 @@ $(document).ready( () => {
                 $.each(res, function(index,item){
                             html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
                       });
+
                       
                       $("#eventList").html(html);
            
          //    eventRecommender.addEvent(eventName,eventId,eventDate,eventCategory,eventKeyword);
+
+
 
         //     $.each(eventRecommender.events, function(index,item){
         //         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
         //   });
           
 
+
         //   $("#eventList").html(html);
+
 
         
         //   $("#eventList").append("<li>Event Id:"+eventId+ ",Event Name:" + eventName+"</li>")

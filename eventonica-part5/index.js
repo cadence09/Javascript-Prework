@@ -44,6 +44,7 @@ app.post("/events", function(req,res){
   let addNewEvents=eventRecommender.events;
   console.log(eventRecommender.events)
   res.send(addNewEvents);
+
 })
 
 //deleting events
@@ -52,8 +53,8 @@ app.delete("/deleteEvent", function(req,res){
   eventRecommender.deleteEvent(req.body.deleteId);
   let restOfTheEvent= eventRecommender.events;
   res.send(restOfTheEvent)
-
 })
+
 
 
 // find keyword
