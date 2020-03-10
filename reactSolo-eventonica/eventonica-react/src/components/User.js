@@ -1,5 +1,6 @@
 import React from 'react';
 import AddUser from './AddUser';
+import DeleteUser from './deteletUser';
 
 class Users extends React.Component{
     constructor(props){
@@ -23,12 +24,16 @@ class Users extends React.Component{
             {this.state.users.map(user =>
                 <div key={user.id}>{user.user_name}</div>
             )}
+            {console.log("what is this users",this.state.users)}
           {/* Add users */}
             <AddUser />
-                
+         {/* Delete User */}
+                <DeleteUser/>
         </div>
       );
     }
   }
+
+
 
   export default Users;

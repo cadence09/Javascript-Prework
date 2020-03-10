@@ -54,6 +54,18 @@ app.get("/getAllUsers", function(req,res){
       })
       
 })
+app.get("/getAllEvents", function(req,res){
+  db.any("SELECT * FROM events")
+      .then ((data)=>{
+         console.log('>>>>> ',data)
+        // return data;
+         res.send(data)
+      })
+      .catch(error =>{
+            console.log("error: ", error)
+      })
+      
+})
 
  app.post("/users", function(req,res){
   //app.get("/users", function(req,res){
@@ -93,15 +105,14 @@ app.get("/getAllUsers", function(req,res){
           //   });
     
  //res.send(req.body.user)//{id: 3, newUser: 'eee'}
-
-
-       db.none('INSERT INTO users (user_name) VALUES ($1)', [req.body.user])
+    console.log("what is in the body",req.body.username)
+       db.one('INSERT INTO users (user_name) VALUES ($1) RETURNING user_name', [req.body.username])
        
-       .then ((data)=>{
+       .then (()=>{
           // console.log("success inserting data")
-          console.log('success inserting data ',data)
+          console.log('success inserting data ')
           // return data;
-           res.send(data)
+          //  res.send(data)
       })
       .catch(error =>{
             console.log("fail inserting: ", error)
@@ -115,12 +126,12 @@ app.get("/getAllUsers", function(req,res){
 
 // delete user
 app.delete("/deleteUser", function(req,res){
-      // console.log(`deleteUser: ${req.body}`);
-      eventRecommender. deleteUser(req.body.deleteId);
+      console.log(`deleteUser: ${JSON.stringify(req.body)}`);
+     // eventRecommender. deleteUser(req.body.deleteId);
       // let restOfTheUsers= eventRecommender.users;
       // res.send(restOfTheUsers)
 
-      db.result(`DELETE FROM users WHERE id = $1`, [req.body.deleteId])
+      db.result(`DELETE FROM users WHERE id = $1`, [req.body.id])
       .then (()=>{
         console.log("success deleting data")
     })
@@ -136,15 +147,15 @@ app.delete("/deleteUser", function(req,res){
 app.post("/events", function(req,res){
 
   // console.log(`what is in the req ${JSON.stringify(req.body)}`) 
-  eventRecommender.addEvent(req.body.event,req.body.id,req.body.date,req.body.category,req.body.keyword);
+  //eventRecommender.addEvent(req.body.event,req.body.id,req.body.date,req.body.category,req.body.keyword);
   // let addNewEvents=eventRecommender.events;
   // console.log(eventRecommender.events)
   // res.send(addNewEvents);
   let values=[
-    req.body.event,
-    req.body.date,
-    req.body.category,
-    req.body.keyword
+    req.body.eventName,
+    req.body.eventDate,
+    req.body.eventCategory,
+    req.body.eventKeyword
   ]
 
   // db.query('INSERT INTO events (event_name,event_id,event_date,event_category,event_keyword) VALUES ($1,$2,$3,$4,$5)',values,(err,res)=>{
@@ -171,7 +182,7 @@ app.delete("/deleteEvent", function(req,res){
   // res.send(restOfTheEvent)
 
 
-  db.result(`DELETE FROM events WHERE id = $1`,[req.body.deleteId])
+  db.result(`DELETE FROM events WHERE id = $1`,[req.body.id])
       .then (()=>{
         console.log("success deleting data")
     })

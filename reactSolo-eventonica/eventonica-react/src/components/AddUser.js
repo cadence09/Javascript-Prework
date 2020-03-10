@@ -1,58 +1,46 @@
 import React from 'react';
 
 class AddUsers extends React.Component{
-    constructor(props){
-      super(props);
-      this.state={
-        username:''
-      }
-      this.handleChange = this.handleChange.bind(this)
-      this.handleSubmit = this.handleSubmit.bind(this)
-    }
-    // componentDidMount() {
-    //     e.preventDefault();
-    //     const requestOptions={
-    //         method:'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //     };
-    //   fetch('/users', requestOptions)
-    //     .then(res=> res.json())
-    //     .then((users) => this.setState({ users }));
-    // }
-    
-    handleChange(event) {
-        this.setState({ username: event.target.value })
-      }
-    
-      handleSubmit(event) {
-        // alert(this.state.username)
-        event.preventDefault();
-        const requestOptions={
-                    method:'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                };
-              fetch('/users', requestOptions)
-                .then(res=> res.json())
-                .then((users) => this.setState({ users }));
-      }
-    
-   
-    render() {
-      return (
-        <div>
-         
-          {/* Add users */}
-            <h1>Add Users</h1>
-            <form onSubmit={this.handleSubmit}>
-                <label>Username</label>
-                <input value={this.state.username} placeholder="add your username here" type="text" onChange={this.handleChange}/><br/>
-                <button>Submit</button>
-                {console.log(this.state.username)}
-            </form>
-                
-        </div>
-      );
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+   {console.log(this.state.value)};
+   {console.log("what is this.refs",this.refs.username.value)}
+    event.preventDefault();
+    fetch('/users', { 
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body:JSON.stringify({"username":this.refs.username.value})
+    
+    })
+    .then(function(response) {
+      return response.json()
+    }).then(function(body) {
+      console.log(body);
+    });
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          <h1> Add Users</h1>
+          <input type="text" value={this.state.value} onChange={this.handleChange} name="username" ref="username"/>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
 
   export default AddUsers;

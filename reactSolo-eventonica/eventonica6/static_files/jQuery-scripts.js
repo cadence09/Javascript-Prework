@@ -26,16 +26,7 @@ $(document).ready( () => {
                             html+=`<li>${item.user_name}</li>`
                       });
                       $("#all-users").html(html);
-            //     $.each(res, function(index,item){
-            //         html+=`<li>${item.newUser}</li>`
-            //   });
            
-                    // eventRecommender.addUser(addNewUser,addId);
-                    // $.each(data, function(index,item){
-                    //           html+=`<li>${item.newUser}</li>`
-                    //     });
-                        
-                    //     $("#all-users").html(html);
             }
            
            
@@ -43,28 +34,7 @@ $(document).ready( () => {
        
     })
     
-        // $("#button").click(function(e){
-        //      let html="";
-        //  
-    // $("#button").click(function(e){
-    //      let html="";
-    //     e.preventDefault();
-    //     let addId=$("#add-user-id").val();
-    // let addNewUser=$("#add-user-name").val();
-    //     eventRecommender.addUser(addNewUser,addId);
-
-    //     $.each(eventRecommender.users, function(index,item){
-    //       html+=`<li>${item.newUser}</li>`
-    // });
-    
-    // $("#all-users").html(html);
-
-    //     // console.log(addUserToList);
-    //     // $("#all-users").append("<li>"+ addUserToList+"</li>")
-    //     // $("#all-users").append("<li>User ID: "  + addId + ": " + "User Name: "+ addUser +"</li>")
-    //     // $("#all-users").html(addUser)
-       
-    // })
+   
     
 // detele user block 
     $("#deleteBtn").click(function(e){
@@ -74,7 +44,7 @@ $(document).ready( () => {
         $.ajax({
             url:"/deleteUser",
             type: "DELETE",
-            async: false,
+            async: true,
             data: {deleteId:valueOfdeleteUserId},
             // dataType:"text",
             success:function (res){
