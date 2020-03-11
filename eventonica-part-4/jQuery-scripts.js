@@ -1,5 +1,6 @@
 $(document).ready( () => {
     const eventRecommender = new EventRecommender(); 
+   
     // console.log(recommandation)
     // let html="";
     // $.each(recommandation.users, function(index,item){
@@ -157,15 +158,15 @@ $("#categoryBtn").click(function(e){
 
 });
 
- //Save Event for user: use nested loop
-// $("#categoryBtn").click(function(e){
-//     e.preventDefault();
-//     let html="";
-//      let userId=$("#save-user-id").val();
-//      let eventId=$("#save-event-id").val();
-//      eventRecommender.saveUserEvent(userId,eventId);
-     
-// )}
+ //Save Event for user: 
+$("#savePersonalEvent").click(function(e){
+    e.preventDefault();
+   
+     let userId=$("#save-user-id").val();
+     let eventId=$("#save-event-id").val();
+     eventRecommender.saveUserEvent(userId,eventId);
+    
+})
 });
 
 
