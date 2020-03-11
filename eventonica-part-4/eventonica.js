@@ -109,11 +109,9 @@ class Event{
 // recommandation.addEvent(event2);
 // user1.addPersonEvent("Studying");
 // recommandation.deleteUser(user1)
-<<<<<<< HEAD
+
 // console.log("all users1: "+recommandation.users)
-=======
-// console.log("all users: "+recommandation.users)
->>>>>>> eventonica-part4
+
 
 
 
