@@ -49,11 +49,21 @@ app.post("/addSigthing", function(req,res){
 })
 
 app.get("/listSighting", function(req,res){
-    let join="SELECT sightings.individual_seen,animals.species,sightings.location,sightings.healthCondition,sightings.email FROM sightings INNER JOIN animals ON sightings.animal_id=animals.animals_id"
-    db.query(join,function(err,result){
-            if (err) throw err;
-            console.log(result);
-    })
+    //let join="SELECT sightings.individual_seen,animals.species,sightings.location,sightings.healthCondition,sightings.email FROM sightings INNER JOIN animals ON sightings.animal_id=animals.animals_id"
+    //"SELECT * FROM sightings inner join animals ON animals_id =animal_id"
+    // db.query("SELECT * FROM sightings inner join animals ON animals_id =animal_id",function(err,result){
+    //         if (err) throw err;
+    //         console.log(result);
+    // })
+    db.query("SELECT sightings.animal_id,sightings.individual_seen,animals.species,sightings.location,sightings.healthcondition,sightings.email FROM sightings INNER JOIN animals ON animals.animals_id=sightings.animal_id")
+    //db.any("SELECT * FROM sightings")
+        .then((data)=>{
+            console.log(data)
+            res.send(data)
+        })
+        .catch(error=>{
+            console.log("error", error)
+        })
 })
 
 
