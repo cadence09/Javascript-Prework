@@ -58,6 +58,7 @@ class Sighting extends React.Component{
                     <label>
                         Animal Id:
                         <input type="text" value={this.state.animalId} onChange={this.handleChange} name="id" ref="id"></input>
+                       
                     </label>
                     <label>
                         Indivdual Seen:

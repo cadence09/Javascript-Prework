@@ -18,9 +18,9 @@ class App extends React.Component{
           <Animals/>
         </div>
           <div>
-              <h1>Sighting List</h1>
-              
+            {/* show all record */}
               <ListSightings/>
+              {/* Sighting Form  */}
               <Sighting/>
           </div>
       </div>

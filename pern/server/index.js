@@ -66,6 +66,16 @@ app.get("/listSighting", function(req,res){
         })
 })
 
+app.get("/getAllSightingRecord",function(req,res){
+    db.any("SELECT * FROM sightings")
+        .then((data)=>{
+            res.send(data)
+        })
+        .catch(error=>{
+            console.log("error",error)
+        })
+})
+
 
 
     //     .then(()=>{
