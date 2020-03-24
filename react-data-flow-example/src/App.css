@@ -1,0 +1,36 @@
+body {
+  font-family: 'Indie Flower', cursive;
+}
+
+h1, h2, h3, h4, h5, header {
+  font-family: 'Permanent Marker', cursive;
+}
+
+header {
+  font-size: xx-large;
+  background-color: turquoise;
+  color: black;
+  padding: 0.25em 1em;
+  border-bottom: 3px solid #ccc;
+  margin-bottom: 0.25em;
+}
+
+main {
+  padding: 3em;
+  font-size: x-large;
+}
+
+.todo {
+  margin: 0.5em 0;
+  border-bottom: 1px dotted #ccc;
+  padding: 0.5em;
+}
+
+.todo input[type=checkbox] {
+  margin-right: 1em;
+}
+
+.todo.completed {
+  color: #333;
+  text-decoration: line-through;
+}
