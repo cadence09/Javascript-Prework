@@ -7,47 +7,6 @@ $(document).ready( () => {
     // });
     // $("#all-users").html(html);
 
-<<<<<<< HEAD
-   
-    
-    // connecting ajax to express
-    $("#button").click(function(e){
-    // let html="";
-    e.preventDefault();
-    let addId=$("#add-user-id").val();
-    let addNewUser=$("#add-user-name").val();
-    console.log('<<<<<');
-    console.log(`what is addID and addnewUser ${addNewUser}`)
-     $.ajax({
-        url:"/users",
-        type: "POST",
-        async: false,
-        data: {id: addId, newUser: addNewUser},
-<<<<<<< HEAD
-        // dataType:"html",
-        success:function (res){
-            console.log("you received some data" + (res))
-            $.each(res, function(index,item){
-                html+=`<li>${item.newUser}</li>`
-          });
-        $("#all-users").html(html);
-=======
-        dataType:"text",
-        success:function (res){
-            console.log("you received some data" + (res))
-        //     console.log("you received some data1" + JSON.parse(res))
-        //  return res;
-         
-        $("#all-users").html(res);
->>>>>>> data-model-1
-                // eventRecommender.addUser(addNewUser,addId);
-                // $.each(data, function(index,item){
-                //           html+=`<li>${item.newUser}</li>`
-                //     });
-                    
-                //     $("#all-users").html(html);
-        }
-=======
     $("#button").click(function(e){
         let html="";
         e.preventDefault();
@@ -82,7 +41,6 @@ $(document).ready( () => {
            
         })
        
->>>>>>> super-test
     })
     
         // $("#button").click(function(e){
@@ -136,28 +94,13 @@ $(document).ready( () => {
     // Add Event 
      $("#eventBtn").click(function(e){
          e.preventDefault();
-        let html="";
+         let html="";
          let eventId=$("#add-event-id").val();
           let eventName=$("#add-event-name").val();
           let eventDate=$("#add-event-date").val();
          let  eventCategory=$("#add-event-category").val();
          let  eventKeyword=$("#add-event-keyword").val();
          $.ajax({
-<<<<<<< HEAD
-             url:"/events",
-             type:"POST",
-             data:{addId:eventId, addEvent:eventName,date:eventDate,category:eventCategory,eventKey:eventKeyword},
-            
-             success(data){
-                $.each(data, function(index,item){
-                            html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
-                      });
-                $("#eventList").html(html);
-             }
-         })
-        //    eventRecommender.addEvent(eventName,eventId,eventDate,eventCategory,eventKeyword);
-        //    console.log(eventRecommender.events)
-=======
             url:"/events",
             type: "POST",
             async: false,
@@ -172,16 +115,11 @@ $(document).ready( () => {
                       $("#eventList").html(html);
            
          //    eventRecommender.addEvent(eventName,eventId,eventDate,eventCategory,eventKeyword);
->>>>>>> super-test
         //     $.each(eventRecommender.events, function(index,item){
         //         html+=`<li>Event: ${item.eventName}<br> Date:${item.date}-Category:${item.category}-Keyword:${item.keyword}</li>`
         //   });
           
-<<<<<<< HEAD
-       
-=======
         //   $("#eventList").html(html);
->>>>>>> super-test
         
         //   $("#eventList").append("<li>Event Id:"+eventId+ ",Event Name:" + eventName+"</li>")
           

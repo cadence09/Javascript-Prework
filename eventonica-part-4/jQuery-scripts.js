@@ -13,7 +13,7 @@ $(document).ready( () => {
         let addId=$("#add-user-id").val();
     let addNewUser=$("#add-user-name").val();
         eventRecommender.addUser(addNewUser,addId);
-
+        console.log(eventRecommender.users)
         $.each(eventRecommender.users, function(index,item){
           html+=`<li>${item.newUser}</li>`
     });
