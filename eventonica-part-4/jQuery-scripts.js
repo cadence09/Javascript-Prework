@@ -158,8 +158,8 @@ $("#categoryBtn").click(function(e){
 
 });
 
- //Save Event for user: 
-$("#savePersonalEvent").click(function(e){
+ //Save Event for user
+ $("#savePersonalEvent").click(function(e){
     e.preventDefault();
    
      let userId=$("#save-user-id").val();

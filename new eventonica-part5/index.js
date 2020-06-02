@@ -2,15 +2,14 @@ const express = require("express")
 const app=express()
 const {EventRecommender, User, Event}= require("./static_files/eventonica")
 const bodyParser = require('body-parser');
-const port =5000;
+const port =3000;
 
 app.use(bodyParser.urlencoded({
-    extended: true
-  }));
+  extended: true
+}));
 app.use(bodyParser.json());
 app.use(express.static("static_files"))
 
-// updating user to express
 const eventRecommender = new EventRecommender(); 
 app.post("/users", function(req,res){
   console.log(`what is in the req ${(req.body.id)}`) 
